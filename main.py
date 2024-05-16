@@ -30,12 +30,12 @@ with app.app_context():
 
 @app.route("/addperson", methods=["POST"])
 def add_person():
-    fname = request.form["name"]
-    lname = request.form["name"]
-    sfx = request.form["name"]
-    g = request.form["name"]
-    by = request.form["name"]
-    dy = request.form["name"]
+    fname = request.form["fname"]
+    lname = request.form["lname"]
+    sfx = request.form["sfx"]
+    g = request.form["g"]
+    by = request.form["by"]
+    dy = request.form["dy"]
     person = Person(fname, lname, sfx, g, by, dy)
     db.session.add(person)
     db.session.commit()
