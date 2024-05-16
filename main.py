@@ -39,7 +39,7 @@ def add_person():
     person = Person(fname, lname, sfx, g, by, dy)
     db.session.add(person)
     db.session.commit()
-    return {"success", "person added"}
+    return {"success": "person added"}
 
 
 @app.route("/getperson/<int:id>")
