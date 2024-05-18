@@ -14,14 +14,18 @@ class Person(db.Model):
     g = db.Column(db.String[1])
     by = db.Column(db.Integer)
     dy = db.Column(db.Integer)
+    f = db.Column(db.Integer)
+    m = db.Column(db.Integer)
 
-    def __init__(self, fname, lname, sfx, g, by, dy):
+    def __init__(self, fname, lname, sfx, g, by, dy, f, m):
         self.fname = fname
         self.lname = lname
         self.sfx = sfx
         self.g = g
         self.by = by
         self.dy = dy
+        self.f = f
+        self.m = m
 
 
 with app.app_context():
@@ -36,7 +40,9 @@ def add_person():
     g = request.form["g"]
     by = request.form["by"]
     dy = request.form["dy"]
-    person = Person(fname, lname, sfx, g, by, dy)
+    f = request.form["f"]
+    m = request.form["m"]
+    person = Person(fname, lname, sfx, g, by, dy, f, m)
     db.session.add(person)
     db.session.commit()
     return {"success": "person added"}
@@ -52,7 +58,9 @@ def get_person(id):
             "sfx": person.sfx,
             "g": person.g,
             "by": person.by,
-            "dy": person.dy
+            "dy": person.dy,
+            "f": person.f,
+            "m": person.m
         })
     else:
         return {"error": "Person not found"}
