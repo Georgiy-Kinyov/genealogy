@@ -32,7 +32,7 @@ with app.app_context():
     db.create_all()
 
 
-@app.route("/addperson", methods=["POST"])
+@app.route("/person/add", methods=["POST"])
 def add_person():
     fname = request.form["fname"]
     lname = request.form["lname"]
@@ -48,22 +48,37 @@ def add_person():
     return {"success": "person added"}
 
 
-@app.route("/getperson/<int:id>")
+@app.route("/person/get/<int:id>")
 def get_person(id):
-    person = Person.query.get(id)
-    if person:
-        return jsonify({
-            "fname": person.fname,
-            "lname": person.lname,
-            "sfx": person.sfx,
-            "g": person.g,
-            "by": person.by,
-            "dy": person.dy,
-            "f": person.f,
-            "m": person.m
-        })
-    else:
-        return {"error": "Person not found"}
+    person = Person.query.get_or_404(id)
+    return jsonify({
+        "fname": person.fname,
+        "lname": person.lname,
+        "sfx": person.sfx,
+        "g": person.g,
+        "by": person.by,
+        "dy": person.dy,
+        "f": person.f,
+        "m": person.m
+    })
+
+
+@app.route("/search/fname/<string:q>")
+def search_fname(q):
+    stmt = db.select(Person.id).where(Person.fname == q)
+    res = []
+    for row in db.session.execute(stmt):
+        res.append(row._data[0])
+    return res
+
+
+@app.route("/search/lname/<string:q>")
+def search_lname(q):
+    stmt = db.select(Person.id).where(Person.lname == q)
+    res = []
+    for row in db.session.execute(stmt):
+        res.append(row._data[0])
+    return res
 
 
 @app.route("/test")
