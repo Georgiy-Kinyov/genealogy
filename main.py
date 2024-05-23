@@ -68,7 +68,7 @@ def search_fname(q):
     stmt = db.select(Person.id).where(Person.fname == q)
     res = []
     for row in db.session.execute(stmt):
-        res.append(row._data[0])
+        res.append(row[0])
     return res
 
 
@@ -77,7 +77,7 @@ def search_lname(q):
     stmt = db.select(Person.id).where(Person.lname == q)
     res = []
     for row in db.session.execute(stmt):
-        res.append(row._data[0])
+        res.append(row[0])
     return res
 
 
