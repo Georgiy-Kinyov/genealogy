@@ -81,6 +81,33 @@ def search_lname(q):
     return res
 
 
+@app.route("/search/fullname/<string:q>")
+def search_fullname(q):
+    stmt = db.select(Person.id).where(Person.fname + "_" + Person.lname + "_" + Person.sfx == q)
+    res = []
+    for row in db.session.execute(stmt):
+        res.append(row[0])
+    return res
+
+
+@app.route("/search/by/<int:a>/<int:b>")
+def search_by(a, b):
+    stmt = db.select(Person.id).where((Person.by >= a) & (Person.by <= b))
+    res = []
+    for row in db.session.execute(stmt):
+        res.append(row[0])
+    return res
+
+
+@app.route("/search/dy/<int:a>/<int:b>")
+def search_dy(a, b):
+    stmt = db.select(Person.id).where((Person.dy >= a) & (Person.dy <= b))
+    res = []
+    for row in db.session.execute(stmt):
+        res.append(row[0])
+    return res
+
+
 @app.route("/test")
 def test():
     return "I am the very model of a modern Roman emperor"
