@@ -108,6 +108,19 @@ def search_dy(a, b):
     return res
 
 
+@app.route("/search/child/<int:id>")
+def search_child(id):
+    parent = Person.query.get_or_404(id)
+    if parent.g == "M":
+        stmt = db.select(Person.id).where(Person.f == id)
+    else:
+        stmt = db.select(Person.id).where(Person.m == id)
+    res = []
+    for row in db.session.execute(stmt):
+        res.append(row[0])
+    return res
+
+
 @app.route("/test")
 def test():
     return "I am the very model of a modern Roman emperor"
