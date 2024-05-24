@@ -83,7 +83,7 @@ def search_lname(q):
 
 @app.route("/search/fullname/<string:q>")
 def search_fullname(q):
-    stmt = db.select(Person.id).where(Person.fname + "_" + Person.lname + "_" + Person.sfx == q)
+    stmt = db.select(Person.id).where(Person.fname + "_" + Person.lname == q)
     res = []
     for row in db.session.execute(stmt):
         res.append(row[0])
