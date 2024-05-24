@@ -69,7 +69,7 @@ def search_fname(q):
     res = []
     for row in db.session.execute(stmt):
         res.append(row[0])
-    return res
+    return jsonify({"data": res})
 
 
 @app.route("/search/lname/<string:q>")
@@ -78,7 +78,7 @@ def search_lname(q):
     res = []
     for row in db.session.execute(stmt):
         res.append(row[0])
-    return res
+    return jsonify({"data": res})
 
 
 @app.route("/search/fullname/<string:q>")
@@ -87,7 +87,7 @@ def search_fullname(q):
     res = []
     for row in db.session.execute(stmt):
         res.append(row[0])
-    return res
+    return jsonify({"data": res})
 
 
 @app.route("/search/by/<int:a>/<int:b>")
@@ -96,7 +96,7 @@ def search_by(a, b):
     res = []
     for row in db.session.execute(stmt):
         res.append(row[0])
-    return res
+    return jsonify({"data": res})
 
 
 @app.route("/search/dy/<int:a>/<int:b>")
@@ -105,7 +105,7 @@ def search_dy(a, b):
     res = []
     for row in db.session.execute(stmt):
         res.append(row[0])
-    return res
+    return jsonify({"data": res})
 
 
 @app.route("/search/child/<int:id>")
@@ -118,7 +118,7 @@ def search_child(id):
     res = []
     for row in db.session.execute(stmt):
         res.append(row[0])
-    return res
+    return jsonify({"data": res})
 
 
 @app.route("/test")
