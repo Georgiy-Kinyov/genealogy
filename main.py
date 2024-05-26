@@ -108,6 +108,15 @@ def search_dy(a, b):
     return jsonify({"data": res})
 
 
+@app.route("/search/alive/<int:y>")
+def search_alive(y):
+    stmt = db.select(Person.id).where((Person.by <= y) & (Person.dy >= y))
+    res = []
+    for row in db.session.execute(stmt):
+        res.append(row[0])
+    return jsonify({"data": res})
+
+
 @app.route("/search/child/<int:id>")
 def search_child(id):
     parent = Person.query.get_or_404(id)
